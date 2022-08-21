@@ -90,6 +90,20 @@ alanhr_json <- fromJSON(alanhr_text, flatten = TRUE)
 alandf <- as.data.frame(alanhr_json)
 alandf <-cbind(alandf, player='alanthekat')
 
+dicopato <- paste("https://aoe2.net/api/player/matches?game=aoe2de&steam_id=76561199195740571&count=10")
+dicopatohr <- GET(dicopato)
+dicopatohr_text <- content(dicopatohr, "text")
+dicopatohr_json <- fromJSON(dicopatohr_text, flatten = TRUE)
+dicodf <- as.data.frame(dicopatohr_json)
+dicodf <-cbind(dicodf, player='dicopato')
+
+nano <- paste("https://aoe2.net/api/player/matches?game=aoe2de&steam_id=76561198191637438&count=10")
+nanohr <- GET(nano)
+nanohr_text <- content(nanohr, "text")
+nanohr_json <- fromJSON(nanohr_text, flatten = TRUE)
+nanodf <- as.data.frame(nanohr_json)
+nanodf <-cbind(nanodf, player='Nanox')
+
 coso <- alandf$players
 cosonuevo <- bind_rows(coso, .id = "column_label")
 cosonuevoalan <- cosonuevo %>% filter(name == "Carpincho")
@@ -100,21 +114,21 @@ cosonuevonano <- cosonuevo %>% filter(name == "Nanox")
 civsnano <- merge(cosonuevonano,civ_list,by="civ" ,all = FALSE)
 
 fig <- plot_ly(civsalan, labels = ~civ_name, type = 'pie',
-        textposition = 'inside',
-        textinfo = 'label+percent',
-        insidetextfont = list(color = '#FFFFFF'),
-                              showlegend = FALSE)
+               textposition = 'inside',
+               textinfo = 'label+percent',
+               insidetextfont = list(color = '#FFFFFF'),
+               showlegend = FALSE)
 fig <- fig %>% layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+                      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 saveWidget(fig, "civs_alan.html", selfcontained = F, libdir = "lib")
 
 
 
 fig <- plot_ly(civsnano, labels = ~civ_name, type = 'pie',
-        textposition = 'inside',
-        textinfo = 'label+percent',
-        insidetextfont = list(color = '#FFFFFF'),
-   showlegend = FALSE)
+               textposition = 'inside',
+               textinfo = 'label+percent',
+               insidetextfont = list(color = '#FFFFFF'),
+               showlegend = FALSE)
 fig <- fig %>% layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                       yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 
@@ -122,10 +136,10 @@ saveWidget(fig, "civs_nano.html", selfcontained = F, libdir = "lib")
 
 
 fig <- plot_ly(civsdico, labels = ~civ_name, type = 'pie',
-        textposition = 'inside',
-        textinfo = 'label+percent',
-        insidetextfont = list(color = '#FFFFFF'),
-        showlegend = FALSE)
+               textposition = 'inside',
+               textinfo = 'label+percent',
+               insidetextfont = list(color = '#FFFFFF'),
+               showlegend = FALSE)
 fig <- fig %>% layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                       yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 
