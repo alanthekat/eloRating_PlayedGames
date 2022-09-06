@@ -63,7 +63,7 @@ nanoxdf2 <- as.data.frame(nanoxhr_json2)
 nanoxdf2 <-cbind(nanoxdf2, player='Nanox')
 
 todos <- rbind (alandf, dicodf, nanodf, monodf, parkodf, katodf, monillodf2, nanoxdf2)
-todos <- mutate(todos, Date = anydate(timestamp))
+todos <- mutate(todos, Date = anytime(timestamp))
 todos <- select(todos, !timestamp)
 todos <- arrange(todos, Date)
 
